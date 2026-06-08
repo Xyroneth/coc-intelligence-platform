@@ -9,7 +9,6 @@ HEADERS = {
 
 
 def get_clan(clan_tag: str):
-
     clan_tag = "%23" + clan_tag.replace("#", "")
 
     url = f"https://api.clashofclans.com/v1/clans/{clan_tag}"
@@ -21,7 +20,7 @@ def get_clan(clan_tag: str):
 
     data = response.json()
 
-    print("\n==================== CLAN DEBUG ====================")
+    print("\n================ CLAN DEBUG =================")
     print("STATUS:", response.status_code)
     print("Clan Name:", data.get("name"))
     print("Clan Tag:", data.get("tag"))
@@ -29,6 +28,11 @@ def get_clan(clan_tag: str):
     print("Members:", data.get("members"))
     print("War Wins:", data.get("warWins"))
     print("Description:", data.get("description"))
-    print("====================================================\n")
+
+    if "memberList" in data and len(data["memberList"]) > 0:
+        print("\n========== FIRST MEMBER ==========")
+        print(data["memberList"][0])
+
+    print("=============================================\n")
 
     return data
