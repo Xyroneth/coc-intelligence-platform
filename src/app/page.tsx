@@ -23,7 +23,6 @@ export default function Home() {
   const searchClan = async () => {
     try {
       const res = await api.get(`/clan/${clanTag}`);
-      console.log("CLAN DATA:", res.data);
       setClan(res.data);
     } catch (error) {
       console.error(error);
@@ -63,7 +62,6 @@ export default function Home() {
         style={{
           marginLeft: "10px",
           padding: "10px",
-          cursor: "pointer",
         }}
       >
         Search Player
@@ -73,29 +71,20 @@ export default function Home() {
         <div
           style={{
             marginTop: "20px",
-            padding: "20px",
-            border: "1px solid gray",
-            borderRadius: "10px",
             backgroundColor: "#1e293b",
+            padding: "20px",
+            borderRadius: "12px",
           }}
         >
           <h2>{player.name}</h2>
 
-          <p>
-            <strong>Tag:</strong> {player.tag}
-          </p>
+          <p>Tag: {player.tag}</p>
 
-          <p>
-            <strong>Town Hall:</strong> {player.townHallLevel}
-          </p>
+          <p>Town Hall: {player.townHallLevel}</p>
 
-          <p>
-            <strong>Trophies:</strong> {player.trophies}
-          </p>
+          <p>Trophies: {player.trophies}</p>
 
-          <p>
-            <strong>XP Level:</strong> {player.expLevel}
-          </p>
+          <p>XP Level: {player.expLevel}</p>
         </div>
       )}
 
@@ -119,113 +108,107 @@ export default function Home() {
         style={{
           marginLeft: "10px",
           padding: "10px",
-          cursor: "pointer",
         }}
       >
         Search Clan
       </button>
 
       {clan && (
-        <div
-          style={{
-            marginTop: "25px",
-            padding: "25px",
-            border: "1px solid #334155",
-            borderRadius: "15px",
-            backgroundColor: "#1e293b",
-          }}
-        >
+        <>
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
-              marginBottom: "20px",
+              marginTop: "20px",
+              backgroundColor: "#1e293b",
+              padding: "25px",
+              borderRadius: "12px",
             }}
           >
-            <img
-              src={clan.badgeUrls?.medium}
-              alt="Clan Badge"
-              width={100}
-              height={100}
-            />
+            <div
+              style={{
+                display: "flex",
+                gap: "20px",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={clan.badgeUrls?.medium}
+                alt="Clan Badge"
+                width={120}
+              />
 
-            <div>
-              <h1>{clan.name}</h1>
+              <div>
+                <h2>{clan.name}</h2>
 
-              <p>
-                <strong>Tag:</strong> {clan.tag}
-              </p>
+                <p>{clan.tag}</p>
 
-              <p>
-                <strong>Description:</strong> {clan.description}
-              </p>
+                <p>{clan.description}</p>
+              </div>
             </div>
           </div>
 
-          <hr />
+          <h2 style={{ marginTop: "30px" }}>
+            📊 Clan Analytics
+          </h2>
 
-          <h2>Clan Statistics</h2>
-
-          <p>
-            <strong>Clan Level:</strong> {clan.clanLevel}
-          </p>
-
-          <p>
-            <strong>Members:</strong> {clan.members}
-          </p>
-
-          <p>
-            <strong>War Wins:</strong> {clan.warWins}
-          </p>
-
-          <p>
-            <strong>War Win Streak:</strong> {clan.warWinStreak}
-          </p>
-
-          <p>
-            <strong>Required Trophies:</strong>{" "}
-            {clan.requiredTrophies}
-          </p>
-
-          <p>
-            <strong>Location:</strong>{" "}
-            {clan.location?.name}
-          </p>
-
-          <hr />
-
-          <h2>Top Clan Members</h2>
-
-          <table
+          <div
             style={{
-              width: "100%",
-              borderCollapse: "collapse",
+              display: "grid",
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(220px, 1fr))",
+              gap: "15px",
+              marginTop: "15px",
             }}
           >
-            <thead>
-              <tr>
-                <th align="left">Name</th>
-                <th align="left">Role</th>
-                <th align="left">TH</th>
-                <th align="left">XP</th>
-              </tr>
-            </thead>
+            <div
+              style={{
+                backgroundColor: "#1e293b",
+                padding: "20px",
+                borderRadius: "12px",
+                textAlign: "center",
+              }}
+            >
+              <h3>👥 Members</h3>
+              <h1>{clan.members}</h1>
+            </div>
 
-            <tbody>
-              {clan.memberList?.slice(0, 10).map(
-                (member: any) => (
-                  <tr key={member.tag}>
-                    <td>{member.name}</td>
-                    <td>{member.role}</td>
-                    <td>{member.townHallLevel}</td>
-                    <td>{member.expLevel}</td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </table>
-        </div>
+            <div
+
+            style={{
+                backgroundColor: "#1e293b",
+                padding: "20px",
+                borderRadius: "12px",
+                textAlign: "center",
+              }}
+            >
+              <h3>🏆 Clan Level</h3>
+              <h1>{clan.clanLevel}</h1>
+            </div>
+
+            <div
+              style={{
+                backgroundColor: "#1e293b",
+                padding: "20px",
+                borderRadius: "12px",
+                textAlign: "center",
+              }}
+            >
+              <h3>⚔️ War Wins</h3>
+              <h1>{clan.warWins}</h1>
+            </div>
+
+            <div
+              style={{
+                backgroundColor: "#1e293b",
+                padding: "20px",
+                borderRadius: "12px",
+                textAlign: "center",
+              }}
+            >
+              <h3>🔥 Win Streak</h3>
+              <h1>{clan.warWinStreak}</h1>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
